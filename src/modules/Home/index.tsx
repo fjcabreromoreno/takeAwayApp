@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Text, View, ScrollView } from 'react-native';
 
 import OrderItem from './components/OrderItem';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { getOrders } from '../../store/slices/orders';
+import Counter from './components/Counter';
 
 type OrderProps = {
     customerId: String;
@@ -13,6 +14,7 @@ type OrderProps = {
     taxFree: Boolean;
     timestamp: Date;
     totalPrice: String;
+    finalPrice: Number;
 };
 
 type OrderItemProps = {
@@ -26,7 +28,16 @@ const Home: React.FC<{}> = () => {
     const dispatch = useAppDispatch(),
         { data, loading } = useAppSelector(state => {
             return state.orders;
-        });
+        }),
+        counterValue = useMemo(
+            () =>
+                data
+                    .map(item => {
+                        return item.status === 'open' ? 0 : item.finalPrice;
+                    })
+                    .reduce((acc, val) => acc + val, 0),
+            [data]
+        );
 
     useEffect(() => {
         dispatch(getOrders({}));
@@ -34,11 +45,11 @@ const Home: React.FC<{}> = () => {
 
     return (
         <>
+            <Counter counterValue={counterValue} />
             <ScrollView style={{ flex: 1, backgroundColor: 'black' }}>
                 <View style={{ width: '100%', padding: 20, justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Order List</Text>
                 </View>
-
                 {!loading &&
                     data?.map((item: OrderProps, index: number) => {
                         return <OrderItem key={index} item={item} lastItem={index === data.length - 1} />;

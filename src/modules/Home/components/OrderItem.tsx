@@ -1,4 +1,4 @@
-import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, View, Text, StyleSheet, Image } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import { useAppDispatch } from '../../../store';
@@ -12,6 +12,7 @@ type OrderProps = {
     taxFree: Boolean;
     timestamp: Date;
     totalPrice: String;
+    finalPrice: Number;
 };
 
 type OrderItemProps = {
@@ -39,7 +40,7 @@ const OrderItem: React.FC<{ item: OrderProps; lastItem: Boolean }> = ({ item, la
             onPress={() => {
                 navigation.navigate('Detail', { customerId });
             }}>
-            <View style={styles.orderItemImg}>{/* <Image source={require('../../../../assets/images/101.png')} style={{ height: 60, width: 60 }} /> */}</View>
+            <View style={styles.orderItemImg}>{/* <Image source={require('../../../assets/images/101.png')} /> */}</View>
             <View style={styles.orderItemContent}>
                 <Text style={styles.orderItemCustomerId}>{customerId}</Text>
                 <Text style={styles.orderItemItems}>{items.map((item, index) => `${index !== 0 ? ', ' : ''}${item.itemName}`)}</Text>

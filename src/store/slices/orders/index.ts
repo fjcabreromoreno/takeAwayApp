@@ -18,6 +18,7 @@ type OrderProps = {
     taxFree: Boolean;
     timestamp: Date;
     totalPrice: String;
+    finalPrice: Number;
 };
 
 type OrderItemProps = {
@@ -39,7 +40,10 @@ export const ordersSlice = createSlice({
             state.loading = true;
         });
         builder.addCase(getOrders.fulfilled, (state, action) => {
-            state.data = action.payload;
+            const items = action.payload as unknown as OrderProps[];
+            state.data = items.map((item: OrderProps) => {
+                return { ...item, finalPrice: item.taxFree ? item.totalPrice : parseInt(item.totalPrice) * 0.79 }
+            });
             state.loading = false;
         });
         builder.addCase(getOrders.rejected, (state) => {
