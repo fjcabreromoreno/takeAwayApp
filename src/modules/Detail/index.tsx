@@ -27,7 +27,7 @@ const Detail: React.FC<{ route: RouteProp<{ params: { customerId: String } }, 'p
                 </View>
 
                 {Object.keys(customer).map(key => (
-                    <View style={styles.infoWrapper}>
+                    <View key={key} style={styles.infoWrapper}>
                         <Text style={styles.infoText1}>
                             {key}: <Text style={styles.infoText2}>{customer[key]}</Text>
                         </Text>
