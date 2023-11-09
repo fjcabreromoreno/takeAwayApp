@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         paddingVertical: 24,
         width: '100%',
     },
-    orderItemImg: { height: 90, width: 90, backgroundColor: 'blue', borderRadius: 5 },
+    orderItemImg: { height: 90, width: 90, backgroundColor: '#8C86AA', borderRadius: 5 },
     orderItemContent: {
         flex: 1,
         marginLeft: 12,
@@ -85,9 +85,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingVertical: 8,
     },
-    orderItemPrice: { color: 'gray' },
+    orderItemPrice: { fontWeight: 'bold', color: '#FFFFFF' },
     orderItemStatus: {
-        backgroundColor: '#009688',
+        backgroundColor: '#7E3F8F',
         borderRadius: 10,
         paddingHorizontal: 10,
         paddingVertical: 4,

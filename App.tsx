@@ -4,7 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import Home from './src/modules/Home';
+// import Home from './src/modules/Home';
+import NavigationLeftMenu from './src/modules/Main/NavigationLeftMenu';
 import Detail from './src/modules/Detail';
 
 type AppStackParamList = {
@@ -26,7 +27,13 @@ function App(): JSX.Element {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen
+                    name="NavigationLeftMenu"
+                    component={NavigationLeftMenu}
+                    options={() => ({
+                        headerShown: false,
+                    })}
+                />
                 <Stack.Screen name="Detail" component={Detail} />
             </Stack.Navigator>
         </NavigationContainer>

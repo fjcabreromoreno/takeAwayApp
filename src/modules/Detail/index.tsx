@@ -18,11 +18,13 @@ const Detail: React.FC<{ route: RouteProp<{ params: { customerId: String } }, 'p
     const { data, loading }: TApiResponse = useApiGet('https://run.mocky.io/v3/60ed967d-275d-45cd-9996-a38ee5cc4a1a'),
         customer = data?.customers.find((el: CustomerProps) => el.customerId === customerId);
 
+    console.log('data ==>', data);
+
     return (
         !loading &&
         data && (
-            <View>
-                <Text>Detail {customerId}</Text>
+            <View style={{}}>
+                <Text>User Details {customerId}</Text>
                 <Text>{customer?.customerName}</Text>
             </View>
         )

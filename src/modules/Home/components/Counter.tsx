@@ -1,11 +1,16 @@
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 
 const Counter: React.FC<{ counterValue: Number }> = ({ counterValue }) => {
     return (
-        <View style={{ zIndex: 1, backgroundColor: 'purple', width: 100, height: 60, justifyContent: 'center', alignItems: 'center', position: 'absolute', right: 0, borderBottomLeftRadius: 10 }}>
-            <Text style={{ color: '#FFFFFF', fontWeight: 'bold' }}>Counter ${counterValue.toString()}</Text>
+        <View style={styles.counteWrapper}>
+            <Text style={styles.counterText}>Counter ${counterValue.toString()}</Text>
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    counteWrapper: { backgroundColor: '#8C86AA', height: 60, justifyContent: 'center', alignItems: 'center' },
+    counterText: { color: '#FFFFFF', fontWeight: 'bold' },
+});
 
 export default Counter;

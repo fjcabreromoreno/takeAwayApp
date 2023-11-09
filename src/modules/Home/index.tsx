@@ -1,10 +1,13 @@
 import React, { useEffect, useMemo } from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import { Text, View, ScrollView, SafeAreaView, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import OrderItem from './components/OrderItem';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { getOrders } from '../../store/slices/orders';
 import Counter from './components/Counter';
+import DrawerSceneWrapper from '../../components/DrawerSceneWrapper';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 type OrderProps = {
     customerId: String;
@@ -24,7 +27,7 @@ type OrderItemProps = {
     price: Number;
 };
 
-const Home: React.FC<{}> = () => {
+const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
     const dispatch = useAppDispatch(),
         { data, loading } = useAppSelector(state => {
             return state.orders;
@@ -39,24 +42,55 @@ const Home: React.FC<{}> = () => {
             [data]
         );
 
+    const { openDrawer } = navigation;
+
     useEffect(() => {
         dispatch(getOrders({}));
     }, []);
 
     return (
-        <>
-            <Counter counterValue={counterValue} />
-            <ScrollView style={{ flex: 1, backgroundColor: 'black' }}>
-                <View style={{ width: '100%', padding: 20, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Order List</Text>
-                </View>
-                {!loading &&
-                    data?.map((item: OrderProps, index: number) => {
-                        return <OrderItem key={index} item={item} lastItem={index === data.length - 1} />;
-                    })}
-            </ScrollView>
-        </>
+        <DrawerSceneWrapper>
+            <SafeAreaView style={styles.container}>
+                <TouchableOpacity onPress={openDrawer}>
+                    <Icon name="menu" size={20} color="#666" />
+                </TouchableOpacity>
+                <ScrollView style={{ flex: 1, backgroundColor: 'black' }}>
+                    <View style={{ width: '100%', padding: 20, justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Order List</Text>
+                    </View>
+                    {!loading &&
+                        data?.map((item: OrderProps, index: number) => {
+                            return <OrderItem key={index} item={item} lastItem={index === data.length - 1} />;
+                        })}
+                </ScrollView>
+                <Counter counterValue={counterValue} />
+            </SafeAreaView>
+        </DrawerSceneWrapper>
     );
 };
+
+const styles = StyleSheet.create({
+    container: { backgroundColor: '#fff', flex: 1 },
+    wrapper: { padding: 16 },
+    searchBar: {
+        backgroundColor: '#fff',
+        borderRadius: 50,
+        padding: 16,
+        flexDirection: 'row',
+        alignItems: 'center',
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 10,
+        marginBottom: 12,
+    },
+    searchTextPlaceHolder: {
+        color: '#666',
+        marginLeft: 8,
+    },
+});
 
 export default Home;
