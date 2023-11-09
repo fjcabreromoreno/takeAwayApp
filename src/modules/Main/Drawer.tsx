@@ -3,6 +3,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Platform } from 'react-native';
 import Home from '../Home';
+import Info from '../Info';
 
 const Drawer = createDrawerNavigator();
 
@@ -34,6 +35,13 @@ const DrawerNavigator: React.FC = () => {
                 component={Home}
                 options={{
                     drawerIcon: options => drawerIcon(options, 'home-outline'),
+                }}
+            />
+            <Drawer.Screen
+                name="Info"
+                component={Info}
+                options={{
+                    drawerIcon: options => drawerIcon(options, 'heart-outline'),
                 }}
             />
         </Drawer.Navigator>

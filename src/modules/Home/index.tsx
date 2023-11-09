@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo } from 'react';
-import { Text, View, ScrollView, SafeAreaView, StyleSheet } from 'react-native';
+import { Text, View, ScrollView, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import OrderItem from './components/OrderItem';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { getOrders } from '../../store/slices/orders';
+
+import OrderItem from './components/OrderItem';
 import Counter from './components/Counter';
 import DrawerSceneWrapper from '../../components/DrawerSceneWrapper';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 type OrderProps = {
     customerId: String;
@@ -32,6 +32,7 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
         { data, loading } = useAppSelector(state => {
             return state.orders;
         }),
+        { openDrawer } = navigation,
         counterValue = useMemo(
             () =>
                 data
@@ -41,8 +42,6 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
                     .reduce((acc, val) => acc + val, 0),
             [data]
         );
-
-    const { openDrawer } = navigation;
 
     useEffect(() => {
         dispatch(getOrders({}));
@@ -70,10 +69,10 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-    container: { backgroundColor: '#fff', flex: 1 },
+    container: { backgroundColor: '#FFFFFF', flex: 1 },
     wrapper: { padding: 16 },
     searchBar: {
-        backgroundColor: '#fff',
+        backgroundColor: '#FFFFFF',
         borderRadius: 50,
         padding: 16,
         flexDirection: 'row',
