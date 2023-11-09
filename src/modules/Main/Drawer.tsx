@@ -53,6 +53,6 @@ export default DrawerNavigator;
 const Colors = {
     bg: '#7E3F8F',
     active: '#fff',
-    inactive: '#eee',
+    inactive: 'grey',
     transparent: 'transparent',
 };
